@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="storage-db" default="db-all" basedir=".">
+
+  <property file="build.properties"/>
+
+  <!-- создание -->
+  <target name="db-create">
+    <sql driver="${db.driver}"
+         url="${db.url}"
+         userid="${db.user}"
+         password="${db.pass}"
+         classpath="${jdbc.jar}"
+         src="${sql.create}"
+         encoding="UTF-8"
+         onerror="abort"
+         print="true"/>
+  </target>
+
+  <!-- заполнение -->
+  <target name="db-init" depends="db-create">
+    <sql driver="${db.driver}"
+         url="${db.url}"
+         userid="${db.user}"
+         password="${db.pass}"
+         classpath="${jdbc.jar}"
+         src="${sql.init}"
+         encoding="UTF-8"
+         onerror="abort"
+         print="true"/>
+  </target>
+
+  <!-- выгрузка бд в файл -->
+  <target name="db-show">
+    <echo file="${out.dump}">=== START ===</echo>
+    <echo file="${out.dump}" append="true"></echo>
+
+    <sql driver="${db.driver}"
+         url="${db.url}"
+         userid="${db.user}"
+         password="${db.pass}"
+         classpath="${jdbc.jar}"
+         src="${sql.show}"
+         encoding="UTF-8"
+         onerror="abort"
+         output="${out.dump}"
+         append="true"
+         print="true"/>
+
+    <echo file="${out.dump}" append="true">=== END ===</echo>
+  </target>
+
+  <!-- очистка бд -->
+  <target name="db-clear">
+    <sql driver="${db.driver}"
+         url="${db.url}"
+         userid="${db.user}"
+         password="${db.pass}"
+         classpath="${jdbc.jar}"
+         src="${sql.delete}"
+         encoding="UTF-8"
+         onerror="abort"
+         print="true"/>
+
+    <delete file="${out.dump}" quiet="true"/>
+  </target>
+
+  <!-- общая команда -->
+  <target name="db-all" depends="db-init,db-show"/>
+
+</project>

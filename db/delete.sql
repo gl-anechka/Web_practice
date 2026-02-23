@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS storehouse;
+DROP TABLE IF EXISTS place;
+DROP TABLE IF EXISTS reception;
+DROP TABLE IF EXISTS supply;
+DROP TABLE IF EXISTS partner;
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS product_type;
+
+DROP TYPE IF EXISTS partner_type_enum;
+DROP TYPE IF EXISTS unit_enum;
+DROP TYPE IF EXISTS store_status_enum;
